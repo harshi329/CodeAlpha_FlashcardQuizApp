@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Flashcard Quiz App</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>🧠 Flashcard Quiz App</h1>
+        <p>Study smarter, not harder 🚀</p>
+    </div>
+
+    <div class="progress-section">
+
+        <div class="counter-row">
+            <span id="cardCounter">
+                Card 1 of 1
+            </span>
+        </div>
+
+        <div class="progress-bar">
+            <div id="progressFill"></div>
+        </div>
+
+    </div>
+
+    <div class="flashcard-container">
+
+        <div class="flashcard" id="flashcard">
+
+            <div class="front">
+
+                <div class="card-tag">
+                    QUESTION
+                </div>
+
+                <h2 id="question"></h2>
+
+                <p class="hint">
+                    Click card to flip
+                </p>
+
+            </div>
+
+            <div class="back">
+
+                <div class="card-tag">
+                    ANSWER
+                </div>
+
+                <p id="answer"></p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="navigation">
+
+        <button id="prevBtn">
+            ← Previous
+        </button>
+
+        <button id="nextBtn">
+            Next →
+        </button>
+
+    </div>
+
+    <div class="actions">
+
+        <button id="addBtn">
+            ➕ Add
+        </button>
+
+        <button id="editBtn">
+            ✏ Edit
+        </button>
+
+        <button id="deleteBtn">
+            🗑 Delete
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Modal -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-content">
+
+        <span class="close-btn" id="closeModal">
+            &times;
+        </span>
+
+        <h2 id="modalTitle">
+            Add Flashcard
+        </h2>
+
+        <input
+            type="text"
+            id="newQuestion"
+            placeholder="Enter Question"
+        >
+
+        <input
+            type="text"
+            id="newAnswer"
+            placeholder="Enter Answer"
+        >
+
+        <p id="errorMsg"></p>
+
+        <button id="saveCard">
+            Save Card
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Delete Modal -->
+
+<div class="modal" id="deleteModal">
+
+    <div class="delete-box">
+
+        <h3>
+            Delete Flashcard?
+        </h3>
+
+        <p>
+            This action cannot be undone.
+        </p>
+
+        <div class="delete-actions">
+
+            <button id="cancelDelete">
+                Cancel
+            </button>
+
+            <button id="confirmDelete">
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Toast -->
+
+<div id="toast"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
