@@ -1,16 +1,13 @@
-localStorage.clear();
-
 let flashcards = JSON.parse(localStorage.getItem("flashcards")) || [
 {
-question:"What is HTML?",
-answer:"HTML (HyperText Markup Language) is the standard language used to create and structure web pages."
+    question:"What is HTML?",
+    answer:"HTML (HyperText Markup Language) is the standard language used to create and structure web pages."
 },
 {
-question:"What is CSS?",
-answer:"CSS (Cascading Style Sheets) is used to style and design web pages, including colors, layouts, and fonts."
+    question:"What is CSS?",
+    answer:"CSS (Cascading Style Sheets) is used to style and design web pages, including colors, layouts, and fonts."
 }
 ];
-
 
 let currentIndex = 0;
 let editMode = false;
@@ -31,7 +28,8 @@ function saveStorage(){
 
 function showToast(message){
 
-    const toast = document.getElementById("toast");
+    const toast =
+    document.getElementById("toast");
 
     toast.textContent = message;
 
@@ -61,9 +59,15 @@ function displayCard(){
 
 displayCard();
 
+/* Flip Card */
+
 flashcard.addEventListener("click",()=>{
+
     flashcard.classList.toggle("flip");
+
 });
+
+/* Next */
 
 document.getElementById("nextBtn").onclick = ()=>{
 
@@ -76,6 +80,8 @@ document.getElementById("nextBtn").onclick = ()=>{
     displayCard();
 };
 
+/* Previous */
+
 document.getElementById("prevBtn").onclick = ()=>{
 
     currentIndex--;
@@ -86,6 +92,8 @@ document.getElementById("prevBtn").onclick = ()=>{
 
     displayCard();
 };
+
+/* Add Card */
 
 document.getElementById("addBtn").onclick = ()=>{
 
@@ -101,6 +109,8 @@ document.getElementById("addBtn").onclick = ()=>{
 
     modal.style.display = "flex";
 };
+
+/* Edit Card */
 
 document.getElementById("editBtn").onclick = ()=>{
 
@@ -120,16 +130,15 @@ document.getElementById("editBtn").onclick = ()=>{
     modal.style.display = "flex";
 };
 
+/* Save Card */
+
 document.getElementById("saveCard").onclick = ()=>{
 
-    const qInput =
-    document.getElementById("newQuestion");
+    const q =
+    document.getElementById("newQuestion").value.trim();
 
-    const aInput =
-    document.getElementById("newAnswer");
-
-    const q = qInput.value.trim();
-    const a = aInput.value.trim();
+    const a =
+    document.getElementById("newAnswer").value.trim();
 
     const errorMsg =
     document.getElementById("errorMsg");
@@ -151,12 +160,17 @@ document.getElementById("saveCard").onclick = ()=>{
 
         showToast("✏ Flashcard Updated");
 
+        editMode = false;
+
     }else{
 
         flashcards.push({
             question:q,
             answer:a
         });
+
+        currentIndex =
+        flashcards.length - 1;
 
         showToast("✅ Flashcard Added");
     }
@@ -167,6 +181,8 @@ document.getElementById("saveCard").onclick = ()=>{
 
     displayCard();
 };
+
+/* Delete Card */
 
 document.getElementById("deleteBtn").onclick = ()=>{
 
@@ -180,21 +196,34 @@ document.getElementById("cancelDelete").onclick = ()=>{
 
 document.getElementById("confirmDelete").onclick = ()=>{
 
-    if(flashcards.length > 1){
+    if(flashcards.length === 1){
 
-        flashcards.splice(currentIndex,1);
+        showToast(
+        "⚠ At least one flashcard is required"
+        );
 
-        currentIndex = 0;
+        deleteModal.style.display = "none";
 
-        saveStorage();
-
-        displayCard();
-
-        showToast("🗑 Flashcard Deleted");
+        return;
     }
 
+    flashcards.splice(currentIndex,1);
+
+    if(currentIndex >= flashcards.length){
+        currentIndex =
+        flashcards.length - 1;
+    }
+
+    saveStorage();
+
+    displayCard();
+
     deleteModal.style.display = "none";
+
+    showToast("🗑 Flashcard Deleted");
 };
+
+/* Close Modal */
 
 document.getElementById("closeModal").onclick = ()=>{
 
@@ -212,6 +241,8 @@ window.onclick = (e)=>{
     }
 };
 
+/* Keyboard Controls */
+
 document.addEventListener("keydown",(e)=>{
 
     if(e.key === "ArrowRight"){
@@ -221,4 +252,10 @@ document.addEventListener("keydown",(e)=>{
     if(e.key === "ArrowLeft"){
         document.getElementById("prevBtn").click();
     }
-})
+
+    if(e.key === "Escape"){
+
+        modal.style.display = "none";
+        deleteModal.style.display = "none";
+    }
+});
