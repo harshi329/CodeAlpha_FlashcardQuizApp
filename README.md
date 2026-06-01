@@ -12,6 +12,8 @@ Task 1 for CodeAlpha App Development Internship.
 - HTML
 - CSS
 - JavaScript
+🎥 Demo Video
+A demonstration video of the project is included in the repository.
 
 ## Author
 Harsha
